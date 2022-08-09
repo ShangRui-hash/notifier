@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 
 	"github.com/ShangRui-hash/notifier/wx"
@@ -37,10 +38,12 @@ func run(c *cli.Context) (err error) {
 	for scanner.Scan() {
 		//获取输入的内容
 		line := scanner.Text()
-		//发送到burp
+		//发送到wx
 		if err := wx.SendMsg(line); err != nil {
 			logrus.Error("wx.SendMsg failed,err:", err)
 		}
+		//输出到标准输出
+		fmt.Println(line)
 	}
 	return nil
 }
